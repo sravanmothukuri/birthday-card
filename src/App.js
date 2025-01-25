@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import FloatingSymbols from "./components/FloatingSymbols";
 import RectangleText from "./components/RectangleText";
+import PhotoCarousel from "./components/PhotoCarousel";
 import RadhakrishnaImage from "./assets/Radhakrishna.jpg";
 import music from "./assets/music.mp3";
 import flyingImage from "./assets/image.png";
 import balloonImage from "./assets/balloon.png";
 import birthdayVideo from "./assets/birthday.mp4";
+import cakeImage from "./assets/Cake.jpeg";
 import "./App.css";
 
 function App() {
@@ -15,7 +17,12 @@ function App() {
   const [musicPlaying, setMusicPlaying] = useState(false);
   const [imageVisible, setImageVisible] = useState(false);
   const [balloonVisible, setBalloonVisible] = useState(false);
-  const [messageTransition, setMessageTransition] = useState("fade-in"); // State to control transition effect
+  const [cakeVisible, setCakeVisible] = useState(false);
+  const [messageTransition, setMessageTransition] = useState("fade-in");
+  const [showSpecialMessageButton, setShowSpecialMessageButton] = useState(false);
+  const [hideMessageAndButton, setHideMessageAndButton] = useState(false);
+  const [showSpecialMessage, setShowSpecialMessage] = useState(false);
+  const [showPhotosPage, setShowPhotosPage] = useState(false);
 
   const messages = [
     "It's Your Special Day Yeyey!!",
@@ -41,12 +48,11 @@ function App() {
     if (step === 2) {
       setIsEnd(true);
     } else {
-      // Trigger fade-out transition before updating the message
       setMessageTransition("fade-out");
       setTimeout(() => {
         setStep((prev) => Math.min(prev + 1, messages.length - 1));
-        setMessageTransition("fade-in"); // Trigger fade-in after message update
-      }, 1000); // Wait for the fade-out animation to complete before changing the message
+        setMessageTransition("fade-in");
+      }, 1000);
     }
   };
 
@@ -71,6 +77,39 @@ function App() {
     setBalloonVisible(true);
   };
 
+  const handleCakeCutClick = () => {
+    setCakeVisible(true);
+  };
+
+  const handleCakeImageRightClick = (e) => {
+    e.preventDefault();
+    setHideMessageAndButton(true);
+    setShowSpecialMessageButton(true);
+  };
+
+  const handleSpecialMessageClick = () => {
+    setShowSpecialMessage(true);
+  };
+
+  const handlePhotosClick = () => {
+    setShowPhotosPage(true);
+    setShowSpecialMessage(false);
+  };
+
+  const resetToInitialState = () => {
+    setShowSpecialMessage(false);
+    setStep(0);
+    setIsEnd(false);
+    setShowNewPage(false);
+    setMusicPlaying(false);
+    setImageVisible(false);
+    setBalloonVisible(false);
+    setCakeVisible(false);
+    setHideMessageAndButton(false);
+    setShowSpecialMessageButton(false);
+    setShowPhotosPage(false);
+  };
+
   useEffect(() => {
     window.addEventListener("keydown", handleEnterKey);
     return () => {
@@ -78,15 +117,49 @@ function App() {
     };
   }, [step, isEnd, showNewPage, musicPlaying, imageVisible]);
 
+  // PhotoCarousel Render
+  if (showPhotosPage) {
+    return <PhotoCarousel onReset={resetToInitialState} />;
+  }
+
+  // Special Message Render
+  if (showSpecialMessage) {
+    return (
+      <div className="App" style={{ backgroundColor: "#f8e2e7", height: "100vh" }}>
+        <FloatingSymbols />
+        <RectangleText messages={["Happy Birthday Nanna"]} transition={messageTransition} />
+        <div
+          style={{
+            position: "absolute",
+            top: "5%",
+            width: "100%",
+            textAlign: "center",
+          }}
+        >
+          <button
+            onClick={handlePhotosClick}
+            style={{
+              backgroundColor: "blue",
+              color: "white",
+              border: "none",
+              borderRadius: "20px",
+              padding: "10px 20px",
+              fontSize: "1.2rem",
+              cursor: "pointer",
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+            }}
+          >
+            Photos Choodhama Babyy
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Birthday Video Render
   if (isEnd && !showNewPage) {
     return (
-      <div
-        style={{
-          position: "relative",
-          height: "100vh",
-          width: "100vw",
-        }}
-      >
+      <div style={{ position: "relative", height: "100vh", width: "100vw" }}>
         <video
           src={birthdayVideo}
           autoPlay
@@ -153,6 +226,7 @@ function App() {
     );
   }
 
+  // New Page with Decorations Render
   if (showNewPage) {
     return (
       <div style={{ position: "relative", height: "100vh", width: "100vw" }}>
@@ -258,6 +332,7 @@ function App() {
                     padding: "10px 20px",
                     fontSize: "1.2rem",
                     cursor: "pointer",
+              
                     boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
                   }}
                 >
@@ -280,10 +355,101 @@ function App() {
             ))}
           </div>
         )}
+
+        {balloonVisible && (
+          <div
+            style={{
+              position: "absolute",
+              top: "5%",
+              left: "50%",
+              transform: "translateX(-50%)",
+            }}
+          >
+            <button
+              onClick={handleCakeCutClick}
+              style={{
+                backgroundColor: "red",
+                color: "white",
+                border: "none",
+                borderRadius: "20px",
+                padding: "10px 20px",
+                fontSize: "1.2rem",
+                cursor: "pointer",
+                boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+              }}
+            >
+              Cake Cut Cheddama?
+            </button>
+          </div>
+        )}
+
+        {cakeVisible && !hideMessageAndButton && (
+          <>
+            <img
+              src={cakeImage}
+              alt="Cake"
+              style={{
+                position: "absolute",
+                bottom: "20%",
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: "300px",
+                borderRadius: "15px",
+                boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+                cursor: "pointer",
+              }}
+              onContextMenu={handleCakeImageRightClick}
+            />
+            <div
+              style={{
+                position: "absolute",
+                bottom: "5%",
+                right: "5%",
+                backgroundColor: "rgba(0, 0, 0, 0.6)",
+                color: "white",
+                borderRadius: "15px",
+                padding: "10px 20px",
+                fontSize: "1.2rem",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              Cake ni Cursor tho Cut chey Bangaram
+            </div>
+          </>
+        )}
+
+        {showSpecialMessageButton && (
+          <div
+            style={{
+              position: "absolute",
+              top: "5%",
+              left: "50%",
+              transform: "translateX(-50%)",
+            }}
+          >
+            <button
+              onClick={handleSpecialMessageClick}
+              style={{
+                backgroundColor: "purple",
+                color: "white",
+                border: "none",
+                borderRadius: "20px",
+                padding: "10px 20px",
+                fontSize: "1.2rem",
+                cursor: "pointer",
+                boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+              }}
+            >
+              Open to See the Special Message
+            </button>
+          </div>
+        )}
       </div>
     );
   }
 
+  // Initial Render
   return (
     <div
       className="App"
@@ -294,10 +460,7 @@ function App() {
       }}
     >
       <FloatingSymbols />
-      <RectangleText
-        messages={messages}
-        transition={messageTransition} // Pass transition state to RectangleText
-      />
+      <RectangleText messages={messages} transition={messageTransition} />
     </div>
   );
 }
