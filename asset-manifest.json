@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/birthday-card/static/css/main.b9e7bb2c.css",
-    "main.js": "/birthday-card/static/js/main.98cadd5e.js",
+    "main.css": "/birthday-card/static/css/main.425527c1.css",
+    "main.js": "/birthday-card/static/js/main.46d4f817.js",
     "static/media/birthday.mp4": "/birthday-card/static/media/birthday.c1788fbeb154638c159e.mp4",
-    "static/media/image.png": "/birthday-card/static/media/image.e49c01812d5e375fcab1.png",
-    "static/media/music.mp3": "/birthday-card/static/media/music.5c122e574b69f4cee7bf.mp3",
+    "static/media/music.m4a": "/birthday-card/static/media/music.e93ee0a49af5907002bd.m4a",
+    "static/media/image.png": "/birthday-card/static/media/image.0197c369e7e109b5bc07.png",
+    "static/media/Cake.png": "/birthday-card/static/media/Cake.98dc7dea4498a94f0ea0.png",
     "static/media/balloon.png": "/birthday-card/static/media/balloon.3ec2aafbbce871ead427.png",
-    "static/media/Radhakrishna.jpg": "/birthday-card/static/media/Radhakrishna.68cf8253fe4c9d857aad.jpg",
-    "static/media/Cake.jpeg": "/birthday-card/static/media/Cake.3bf487fb7617b16ae557.jpeg",
+    "static/media/vyshusravan.jpg": "/birthday-card/static/media/vyshusravan.1e5157863df17ec3f358.jpg",
     "index.html": "/birthday-card/index.html",
-    "main.b9e7bb2c.css.map": "/birthday-card/static/css/main.b9e7bb2c.css.map",
-    "main.98cadd5e.js.map": "/birthday-card/static/js/main.98cadd5e.js.map"
+    "main.425527c1.css.map": "/birthday-card/static/css/main.425527c1.css.map",
+    "main.46d4f817.js.map": "/birthday-card/static/js/main.46d4f817.js.map"
   },
   "entrypoints": [
-    "static/css/main.b9e7bb2c.css",
-    "static/js/main.98cadd5e.js"
+    "static/css/main.425527c1.css",
+    "static/js/main.46d4f817.js"
   ]
 }
