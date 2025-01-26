@@ -7,6 +7,16 @@ const photos = [
   { month: 'January 2024', src: `${process.env.PUBLIC_URL}/assets/January2024.jpg` },
   { month: 'February 2024', src: `${process.env.PUBLIC_URL}/assets/February2024.jpg` },
   { month: 'March 2024', src: `${process.env.PUBLIC_URL}/assets/March2024.jpg` },
+  { month: 'April 2024', src: `${process.env.PUBLIC_URL}/assets/April2024.jpg` },
+  { month: 'May 2024', src: `${process.env.PUBLIC_URL}/assets/May2024.jpg` },
+  { month: 'June 2024', src: `${process.env.PUBLIC_URL}/assets/June2024.jpg` },
+  { month: 'July 2024', src: `${process.env.PUBLIC_URL}/assets/July2024.jpg` },
+  { month: 'August 2024', src: `${process.env.PUBLIC_URL}/assets/August2024.jpg` },
+  { month: 'September 2024', src: `${process.env.PUBLIC_URL}/assets/September2024.jpg` },
+  { month: 'October 2024', src: `${process.env.PUBLIC_URL}/assets/October2024.jpg` },
+  { month: 'November 2024', src: `${process.env.PUBLIC_URL}/assets/November2024.jpg` },
+  { month: 'December 2024', src: `${process.env.PUBLIC_URL}/assets/December2024.jpg` },
+  { month: 'January 2025', src: `${process.env.PUBLIC_URL}/assets/January2025.jpg` },
 ];
 
 const PhotoCarousel = () => {

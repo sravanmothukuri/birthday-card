@@ -162,3 +162,40 @@ video {
   object-fit: cover;
   z-index: -1;
 }
+
+/* Cake image styling when visible */
+img[src*="Cake.jpeg"] {
+  position: absolute;
+  bottom: 5%;
+  left: 51%;
+  transform: translateX(-50%);
+  width: 250px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+/* Hide the "Cake Cut Cheddama?" button once the cake is visible */
+button[style*="Cake Cut Cheddama?"] {
+  display: none;
+}
+
+/* Special message button styling */
+button[style*="Open to See the Special Message"] {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+button[style*="Open to See the Special Message"]:hover {
+  transform: scale(1.1);
+}

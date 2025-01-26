@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import FloatingSymbols from "./components/FloatingSymbols";
 import RectangleText from "./components/RectangleText";
 import PhotoCarousel from "./components/PhotoCarousel";
-import RadhakrishnaImage from "./assets/Radhakrishna.jpg";
-import music from "./assets/music.mp3";
+import RadhakrishnaImage from "./assets/vyshusravan.jpg";
+import music from "./assets/music.m4a";
 import flyingImage from "./assets/image.png";
 import balloonImage from "./assets/balloon.png";
 import birthdayVideo from "./assets/birthday.mp4";
-import cakeImage from "./assets/Cake.jpeg";
+import cakeImage from "./assets/Cake.png";
 import "./App.css";
+import { LucideBold } from "lucide-react";
 
 function App() {
   const [step, setStep] = useState(0);
@@ -26,35 +27,9 @@ function App() {
 
   const messages = [
     "It's Your Special Day Yeyey!!",
-    "I Have Made Something For You Because You are Special For Me",
+    "I Have Made Something For You Nanna",
     "Do You Wanna See What I Made? Let's Go!!",
   ];
-
-  const handleEnterKey = (e) => {
-    if (e.key === "Enter") {
-      if (isEnd && !showNewPage) {
-        handleLightsOn();
-      } else if (showNewPage && !musicPlaying) {
-        handlePlayMusic();
-      } else if (musicPlaying && !imageVisible) {
-        handleDecorateClick();
-      } else {
-        handleEnterKeyAction();
-      }
-    }
-  };
-
-  const handleEnterKeyAction = () => {
-    if (step === 2) {
-      setIsEnd(true);
-    } else {
-      setMessageTransition("fade-out");
-      setTimeout(() => {
-        setStep((prev) => Math.min(prev + 1, messages.length - 1));
-        setMessageTransition("fade-in");
-      }, 1000);
-    }
-  };
 
   const handleLightsOn = () => {
     setShowNewPage(true);
@@ -110,12 +85,54 @@ function App() {
     setShowPhotosPage(false);
   };
 
+  const handleEnterKey = (e) => {
+    if (e.key === "Enter") {
+      if (step < messages.length - 1) {
+        setMessageTransition("fade-out");
+        setTimeout(() => {
+          setStep((prev) => prev + 1);
+          setMessageTransition("fade-in");
+          
+          // Directly set isEnd to true when reaching the last message
+          if (step === messages.length - 2) {
+            setIsEnd(true);
+          }
+        }, 1000);
+      } else {
+        // Ensure isEnd is set when on the last message
+        if (!isEnd) {
+          setIsEnd(true);
+          return;
+        }
+        
+        if (!showNewPage) {
+          handleLightsOn();
+        } else if (!musicPlaying) {
+          handlePlayMusic();
+        } else if (!imageVisible) {
+          handleDecorateClick();
+        } else if (!balloonVisible) {
+          handleFlyBalloons();
+        } else if (balloonVisible && !cakeVisible) {
+          handleCakeCutClick();
+        } else if (cakeVisible && !hideMessageAndButton && !showSpecialMessageButton) {
+          setHideMessageAndButton(true);
+          setShowSpecialMessageButton(true);
+        } else if (showSpecialMessageButton && !showSpecialMessage) {
+          handleSpecialMessageClick();
+        } else if (showSpecialMessage && !showPhotosPage) {
+          handlePhotosClick();
+        }
+      }
+    }
+  };
+
   useEffect(() => {
     window.addEventListener("keydown", handleEnterKey);
     return () => {
       window.removeEventListener("keydown", handleEnterKey);
     };
-  }, [step, isEnd, showNewPage, musicPlaying, imageVisible]);
+  }, [step, isEnd, showNewPage, musicPlaying, imageVisible, showSpecialMessage]);
 
   // PhotoCarousel Render
   if (showPhotosPage) {
@@ -127,24 +144,28 @@ function App() {
     return (
       <div className="App" style={{ backgroundColor: "#f8e2e7", height: "100vh" }}>
         <FloatingSymbols />
-        <RectangleText messages={["Happy Birthday Nanna"]} transition={messageTransition} />
+        <RectangleText messages={["*Happy Birthday To You Nanna 🥹💗* Four Years Avutundhi Nanna Inka 5days ki Nuvu Naatho First Time Maatladi,Nuvu Parichayam Ayyinappudu nunchi Nanna First Priority,School Valla Anna gaa Parichayam ayya But Destiny anedhi Undhi ani Ardham Ayyindhi Nanna Manam elaa Kaavalo Manake Teliselaa Chesi Kalipindhi 😭🩷,You Are The Only Person In My Heart Not Matter What the Relation nanna 🥹🩷,This Last One Year We Have Spent So Many Memorable Moments Nanna 😌💗,I Like the Way You Call me *Nanna🥹💘* Nenu Entha Tenction lo Unna nee aa Pilupu tho Cool Ayipotha raa,We Have so Many Loveable Moments Which Make Me Blush Everytime I remember About them 😁🩷....Jeevithantham Nuvu Nenu Happy Gaa Kalisi Undham Nanna 😭💗....Iddaram Kalisi Ilanti Birthday Kalisi Jarupukundham,Inka Konni Years Tarvatha mana Iddaru Ledha Mugguru Pillalatho Jarupukundham Okk Naa Bday Babe 😁😁😁...*.I Love You Nannaluuu 🥹🩷*.....*I Miss You Sooo Much Bujjoduu😭🩷*...Thappakunda Next Bday kalisi Chesukundhaam I Promise Nanna.....Once Again Happy Birthday Nanna 🩷 *Lets Shower Love On Each Other till Lifelong♾️🩷* ....Eppudu Chinni Godavalu Paduthu...Kaburluu Cheppukuntu Gadipedham Nanna 😁💗"]} transition={messageTransition} />
         <div
           style={{
             position: "absolute",
-            top: "5%",
+            bottom: "1.8%",
             width: "100%",
+            zIndex: 2,
+            opacity:0.9,
+          
             textAlign: "center",
           }}
         >
           <button
             onClick={handlePhotosClick}
             style={{
-              backgroundColor: "blue",
-              color: "white",
+              backgroundColor: "Pink",
+              color: "Black",
               border: "none",
               borderRadius: "20px",
               padding: "10px 20px",
-              fontSize: "1.2rem",
+              fontWeight:"bold",
+              fontSize: "0.9rem",
               cursor: "pointer",
               boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
             }}
@@ -193,9 +214,9 @@ function App() {
             color: "#333",
           }}
         >
-          Many More Happy Returns of the Day Babyy!!! I have Planned more.
+          Many More Happy Returns of the Day Babyy!!! 
           <br />
-          Click on "Lights On"
+          I have Planned more.Click on "Lights On"
         </div>
 
         <div
@@ -241,7 +262,7 @@ function App() {
             position: "absolute",
             top: 0,
             left: 0,
-            opacity: 0.5,
+            opacity: 0.8,
             zIndex: -1,
           }}
         ></div>
@@ -263,6 +284,7 @@ function App() {
                 border: "none",
                 borderRadius: "20px",
                 padding: "10px 20px",
+                opacity:0.6,
                 fontSize: "1.2rem",
                 cursor: "pointer",
                 boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
@@ -288,9 +310,11 @@ function App() {
                 backgroundColor: "blue",
                 color: "white",
                 border: "none",
+                opacity:0.6,
                 borderRadius: "20px",
                 padding: "10px 20px",
                 fontSize: "1.2rem",
+            
                 cursor: "pointer",
                 boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
               }}
@@ -307,10 +331,12 @@ function App() {
               alt="Flying Decoration"
               style={{
                 position: "absolute",
-                top: "50%",
+                top: "40%",
                 left: "50%",
+                opacity:0.5,
                 transform: "translate(-50%, -50%)",
-                width: "400px",
+                width: "650px",
+                maxWidth: "90vw",
               }}
             />
             {!balloonVisible && (
@@ -325,10 +351,11 @@ function App() {
                 <button
                   onClick={handleFlyBalloons}
                   style={{
-                    backgroundColor: "green",
+                    backgroundColor: "blue",
                     color: "white",
                     border: "none",
                     borderRadius: "20px",
+                    opacity:0.6,
                     padding: "10px 20px",
                     fontSize: "1.2rem",
                     cursor: "pointer",
@@ -356,32 +383,33 @@ function App() {
           </div>
         )}
 
-        {balloonVisible && (
-          <div
-            style={{
-              position: "absolute",
-              top: "5%",
-              left: "50%",
-              transform: "translateX(-50%)",
-            }}
-          >
-            <button
-              onClick={handleCakeCutClick}
-              style={{
-                backgroundColor: "red",
-                color: "white",
-                border: "none",
-                borderRadius: "20px",
-                padding: "10px 20px",
-                fontSize: "1.2rem",
-                cursor: "pointer",
-                boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-              }}
-            >
-              Cake Cut Cheddama?
-            </button>
-          </div>
-        )}
+{balloonVisible && !cakeVisible && (
+  <div
+    style={{
+      position: "absolute",
+      top: "5%",
+      left: "50%",
+      transform: "translateX(-50%)",
+    }}
+  >
+    <button
+      onClick={handleCakeCutClick}
+      style={{
+        backgroundColor: "blue",
+        color: "white",
+        border: "none",
+        borderRadius: "20px",
+        opacity:0.6,
+        padding: "10px 20px",
+        fontSize: "1.2rem",
+        cursor: "pointer",
+        boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+      }}
+    >
+      Cake Cut Cheddama?
+    </button>
+  </div>
+)}
 
         {cakeVisible && !hideMessageAndButton && (
           <>
@@ -390,12 +418,11 @@ function App() {
               alt="Cake"
               style={{
                 position: "absolute",
-                bottom: "20%",
-                left: "50%",
+                bottom: "10%",
+                left: "51%",
                 transform: "translateX(-50%)",
-                width: "300px",
-                borderRadius: "15px",
-                boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+                width: "290px",
+            
                 cursor: "pointer",
               }}
               onContextMenu={handleCakeImageRightClick}
@@ -403,18 +430,19 @@ function App() {
             <div
               style={{
                 position: "absolute",
-                bottom: "5%",
+                bottom: "25%",
                 right: "5%",
-                backgroundColor: "rgba(0, 0, 0, 0.6)",
-                color: "white",
-                borderRadius: "15px",
+                backgroundColor: "rgba(160, 160, 160, 0.6)",
+                color: "black",
+                borderRadius: "30px",
                 padding: "10px 20px",
                 fontSize: "1.2rem",
-                fontWeight: "bold",
+                fontFamily:"Lexend",
+                fontWeight: "normal",
                 textAlign: "center",
               }}
             >
-              Cake ni Cursor tho Cut chey Bangaram
+              Cake meedha Right Click chey Bangaram
             </div>
           </>
         )}
@@ -431,17 +459,18 @@ function App() {
             <button
               onClick={handleSpecialMessageClick}
               style={{
-                backgroundColor: "purple",
+                backgroundColor: "blue",
                 color: "white",
                 border: "none",
                 borderRadius: "20px",
+                opacity:0.6,
                 padding: "10px 20px",
                 fontSize: "1.2rem",
                 cursor: "pointer",
                 boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
               }}
             >
-              Open to See the Special Message
+              Click to See the Special Message
             </button>
           </div>
         )}
@@ -464,5 +493,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
