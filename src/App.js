@@ -26,8 +26,8 @@ function App() {
   const [showPhotosPage, setShowPhotosPage] = useState(false);
 
   const messages = [
-    "It's Your Special Day Yeyey!!",
-    "I Have Made Something For You Nanna",
+    "It's Your Special Day Yeyey🥳🥳!!",
+    "I Have Made Something For You Nanna😌💗",
     "Do You Wanna See What I Made? Let's Go!!",
   ];
 
